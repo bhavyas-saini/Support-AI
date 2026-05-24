@@ -1,13 +1,16 @@
 'use client'
-import { navigate } from 'next/dist/client/components/segment-cache/navigation'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from "motion/react"
 function EmbedClient({ ownerId }: { ownerId: string }) {
     const navigate = useRouter()
     const [copied, setCopied] = useState(false)
+    const [appUrl, setAppUrl] = useState("")
+    useEffect(() => {
+        setAppUrl(window.location.origin)
+    }, [])
     const embedCode = `<script 
-    src="${process.env.NEXT_PUBLIC_APP_URL}/chatBot.js" 
+    src="${appUrl}/chatBot.js" 
     data-owner-id="${ownerId}">
 </script> `
     const copyCode = () => {
